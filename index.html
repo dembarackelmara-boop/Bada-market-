@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10251d">
+<title>BADA MARKET</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7f5;color:#17231c}
+header{background:#10251d;color:white;padding:20px 16px}
+.brand{font-size:27px;font-weight:900;color:#65df9a}
+header p{margin:6px 0 14px;color:#d2e5d9}
+.search{width:100%;padding:14px;border:0;border-radius:10px;font-size:16px}
+main{padding:18px 14px 90px}
+h2{font-size:21px}
+.categories{display:flex;gap:9px;overflow:auto;padding:8px 0}
+.categories button{border:1px solid #dce5de;background:white;padding:10px 14px;border-radius:22px;white-space:nowrap}
+.hero{background:#d9f6e4;border-radius:16px;padding:22px;margin:14px 0}
+.hero h2{font-size:25px;margin:0 0 8px}
+.hero p{line-height:1.5}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.product{background:white;border-radius:13px;padding:10px;box-shadow:0 2px 9px #0000000c}
+.photo{height:115px;border-radius:10px;background:#e8f1eb;display:grid;place-items:center;font-size:55px}
+.product h3{font-size:15px;margin:10px 0 5px}
+.price{font-weight:bold;color:#138348}
+.product button,.checkout{background:#137d46;color:white;border:0;padding:11px;border-radius:9px;width:100%;margin-top:9px;font-weight:bold}
+nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:14px 5px;border-top:1px solid #ddd}
+nav span{font-size:13px;text-align:center}
+footer{text-align:center;color:#718078;padding:20px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">BADA MARKET</div>
+<p>Le marché du monde dans votre poche 🌍</p>
+<input class="search" id="search" placeholder="Rechercher un produit..." oninput="filterProducts()">
+</header>
+<main>
+<div class="categories">
+<button onclick="showAll()">Tout</button>
+<button onclick="filterCategory('Mode')">Mode</button>
+<button onclick="filterCategory('Électronique')">Électronique</button>
+<button onclick="filterCategory('Maison')">Maison</button>
+<button onclick="filterCategory('Beauté')">Beauté</button>
+</div>
+<section class="hero">
+<h2>Bienvenue chez BADA !</h2>
+<p>Découvrez des produits du monde entier et faites vos achats simplement.</p>
+<strong>Des vendeurs, un seul marché.</strong>
+</section>
+<h2>🔥 Produits populaires</h2>
+<div class="products" id="products">
+<div class="product" data-category="Électronique">
+<div class="photo">🎧</div><h3>Casque audio</h3>
+<div class="price">25 €</div>
+<button onclick="addCart('Casque audio')">Ajouter au panier</button>
+</div>
+<div class="product" data-category="Mode">
+<div class="photo">👟</div><h3>Chaussures</h3>
+<div class="price">30 €</div>
+<button onclick="addCart('Chaussures')">Ajouter au panier</button>
+</div>
+<div class="product" data-category="Maison">
+<div class="photo">💡</div><h3>Lampe moderne</h3>
+<div class="price">18 €</div>
+<button onclick="addCart('Lampe moderne')">Ajouter au panier</button>
+</div>
+<div class="product" data-category="Beauté">
+<div class="photo">🧴</div><h3>Soin beauté</h3>
+<div class="price">12 €</div>
+<button onclick="addCart('Soin beauté')">Ajouter au panier</button>
+</div>
+</div>
+<h2>🛒 Mon panier : <span id="count">0</span></h2>
+<div id="cart">Votre panier est vide.</div>
+<button class="checkout" onclick="alert('La commande sera disponible après la configuration des paiements.')">Continuer mes achats</button>
+<footer>© 2026 BADA MARKET — Marketplace internationale</footer>
+</main>
+<nav>
+<span>🏠<br>Accueil</span>
+<span>🔎<br>Recherche</span>
+<span>🛒<br>Panier</span>
+<span>👤<br>Compte</span>
+</nav>
+<script>
+let cart=[];
+function addCart(name){
+cart.push(name);
+document.getElementById('count').textContent=cart.length;
+document.getElementById('cart').textContent=cart.join(' • ');
+}
+function filterProducts(){
+let q=document.getElementById('search').value.toLowerCase();
+document.querySelectorAll('.product').forEach(p=>{
+p.style.display=p.textContent.toLowerCase().includes(q)?'block':'none';
+});
+}
+function filterCategory(cat){
+document.querySelectorAll('.product').forEach(p=>{
+p.style.display=p.dataset.category===cat?'block':'none';
+});
+}
+function showAll(){
+document.querySelectorAll('.product').forEach(p=>p.style.display='block');
+}
+</script>
+</body>
+</html>
